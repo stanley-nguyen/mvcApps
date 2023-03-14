@@ -6,6 +6,7 @@ Edits:
     Stanley 3/8/23: completed file
 */
 
+
 public interface AppFactory {
     public Model makeModel();
     public View makeView();
