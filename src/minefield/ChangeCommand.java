@@ -1,6 +1,12 @@
 package minefield;
 
+/*
+Edits:
+    Bryant 3/17/23: created file
+*/
+
 import mvc.*;
+
 public class ChangeCommand extends Command {
     private Heading heading;
 
@@ -11,7 +17,7 @@ public class ChangeCommand extends Command {
 
     public void execute() {
         Minefield minefield = (Minefield)model;
-        // change() method from Minefield.java calls the changed() method from Model.java
+        // change() method to be implemented on Minefield.java
         // moves player based on specified heading
         minefield.change(heading);
     }
