@@ -13,4 +13,4 @@ public class ChangeCommand extends Command {
         light.change();
     }
 
-}
+}x
