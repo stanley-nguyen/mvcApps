@@ -14,6 +14,7 @@ Edits:
     Sanjana 3/13/23: created file and implemented basic methods and design of class
     Stanley 3/17/23: updated file with AppFactory constructor and methods using factory
     Stanley 3/17/23: added display(), setModel() and getModel() from instructor
+    Stanley 3/18/23: updated actionPerformed() commands
 */
 public class AppPanel extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -21,7 +22,7 @@ public class AppPanel extends JPanel implements ActionListener, PropertyChangeLi
         protected JPanel controlPanel;
         protected View view; //this is canvas view
 
-        private String fileName;
+//        private String fileName;
         private AppFactory af;
         private SafeFrame frame;
         public static int FRAME_WIDTH = 500;
@@ -69,19 +70,21 @@ public class AppPanel extends JPanel implements ActionListener, PropertyChangeLi
             try {
                 switch (cmmd) {
                     case "Save": {
-                        if(fileName == null){
-                            fileName = Utilities.getFileName((String) null, false);
-                            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName));
-                            os.writeObject(this.model);
-                            os.close();
-                        }
+//                        if(fileName == null){
+//                            fileName = Utilities.getFileName((String) null, false);
+//                            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName));
+//                            os.writeObject(this.model);
+//                            os.close();
+//                        }
+                        Utilities.save(model, false);
                         break;
                     }
                     case "Save As": {
-                        String fName = Utilities.getFileName((String) null, false);
-                        ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fName));
-                        os.writeObject(this.model);
-                        os.close();
+//                        String fName = Utilities.getFileName((String) null, false);
+//                        ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fName));
+//                        os.writeObject(this.model);
+//                        os.close();
+                        Utilities.save(model, true);
                         break;
                     }
                     case "Open": {
@@ -89,15 +92,15 @@ public class AppPanel extends JPanel implements ActionListener, PropertyChangeLi
                             String fName = Utilities.getFileName((String) null, true);
                             ObjectInputStream is = new ObjectInputStream(new FileInputStream(fName));
                             model = (Model) is.readObject();
-                            view.setModel(model);
+                            setModel(model);
                             is.close();
                         }
                         break;
                     }
                     case "New": {
                         if (Utilities.confirm("Are you sure? Unsaved changes will be lost!")) {
-                            model = new Model();
-                            view.setModel(model); // set model
+                            model = af.makeModel();
+                            setModel(model); // set model
                         }
                         break;
                     }
