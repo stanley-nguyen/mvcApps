@@ -15,6 +15,7 @@ Edits:
     Stanley 3/17/23: updated file with AppFactory constructor and methods using factory
     Stanley 3/17/23: added display(), setModel() and getModel() from instructor
     Stanley 3/18/23: updated actionPerformed() commands
+    Stanley 3/20/23: added edit commands to actionPerformed
 */
 public class AppPanel extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -119,6 +120,14 @@ public class AppPanel extends JPanel implements ActionListener, PropertyChangeLi
                         break;
                     }
                     default: {
+                        for(String s : af.getEditCommands())
+                        {
+                            if(cmmd.equals(s))
+                            {
+                                af.makeEditCommand(model, s, null);
+                                break;
+                            }
+                        }
                         throw new Exception("Unrecognized command: " + cmmd);
                     }
                 }

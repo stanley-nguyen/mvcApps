@@ -5,6 +5,7 @@ Edits:
     Stanley 3/16/23: created file
     Stanley 3/16/23: implemented makeModel, makeView, getTitle, getEditCommmands, makeEditCommands
     Stanley 3/17/23: implemented getHelp, about, updated makeEditCommands to return ChangeCommand
+    Stanley 3/20/23: updated ChangeCommand to MineFieldCommand
 */
 
 import mvc.*;
@@ -45,7 +46,7 @@ public class MineFieldFactory implements AppFactory {
         try
         {
             Heading heading = Heading.valueOf(s);
-            return new ChangeCommand(m, heading);
+            return new MineFieldCommand(m, heading);
         }
         catch (IllegalArgumentException e) { return null; }
     }

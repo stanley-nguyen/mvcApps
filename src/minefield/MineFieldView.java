@@ -4,6 +4,7 @@ package minefield;
 Edits:
     Stanley 3/16/23: created file
     Stanley 3/16/23: partially implemented mine grid and created test main() function
+    Stanley 3/19/23: nested Cell class inside MineFieldView
 */
 
 import mvc.*;
@@ -45,15 +46,21 @@ public class MineFieldView extends View {
         }
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        frame.setSize(500, 500);
-        frame.setTitle("MineField");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JPanel panel = new JPanel();
-        MineFieldView view = new MineFieldView(new Model());
-        panel.add(view);
-        frame.add(panel);
-        frame.setVisible(true);
-    }
+    // test minefieldview
+//    public static void main(String[] args) {
+//        JFrame frame = new JFrame();
+//        frame.setSize(500, 500);
+//        frame.setTitle("MineField");
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        JPanel panel = new JPanel();
+//        MineFieldView view = new MineFieldView(new Model());
+//        panel.add(view);
+//        frame.add(panel);
+//        frame.setVisible(true);
+//    }
+}
+
+public class Cell extends JLabel
+{
+    Patch = new Patch();
 }
