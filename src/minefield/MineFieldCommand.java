@@ -7,10 +7,10 @@ Edits:
 
 import mvc.*;
 
-public class ChangeCommand extends Command {
+public class MineFieldCommand extends Command {
     private Heading heading;
 
-    public ChangeCommand(Model model, Heading heading) {
+    public MineFieldCommand(Model model, Heading heading) {
         super(model);
         this.heading = heading;
     }
