@@ -12,21 +12,28 @@ import java.util.Random;
  */
 public class MineField {
     private Patch[][] grid = new Patch[mineFieldLength][mineFieldWidth];
+    private int xLoc;
+    private int yLoc;
     private final Random generator = new Random();
+
     public static int percentMined = 5;
     public static int mineFieldWidth;
     public static int mineFieldLength;
 
 
-    public MineField(Patch location){
+    public MineField(Patch patch){
         //Initializing the grid array
         for(int i = 0; i < mineFieldLength; i++) {
             for (int j = 0; j < mineFieldWidth; j++) {
-                grid[i][j] = new Patch(i, j);
+                grid[i][j] = new Patch();
             }
         }
+        this.xLoc = 0;
+        this.yLoc = 0;
+
     }
-     public void makeGrid(){
+    //Method to set up random mines around the grid
+     public void setUpMines(){
        for(int i = 0; i < (mineFieldWidth * mineFieldLength) * (.01 * percentMined); i++){
            int x = generator.nextInt(0, mineFieldWidth);
            int y = generator.nextInt(0, mineFieldLength);
@@ -39,10 +46,8 @@ public class MineField {
            }
        }
      }
-     public void change(Patch p){
-        p.setSelected(true);
-     }
 
+    //method to initialize patch numbers
      public void setPatchNums(){
         //In order to find how many mines a patch touches, we must check all 8 adjacent patches
          //If any one of them has a mine, increment the "numMines" field of the current patch
@@ -92,5 +97,37 @@ public class MineField {
             }
         }
      }
+
+    public void move(Heading h){
+        if (h == Heading.N){
+            yLoc--;
+        }
+        if (h == Heading.NE){
+            yLoc--;
+            xLoc++;
+        }
+        if (h == Heading.E){
+            xLoc++;
+        }
+        if (h == Heading.SE){
+            yLoc++;
+            xLoc++;
+        }
+        if (h == Heading.S){
+            yLoc++;
+        }
+        if (h == Heading.SW){
+            yLoc++;
+            xLoc--;
+        }
+        if (h == Heading.W){
+            xLoc--;
+        }if (h == Heading.NW){
+            yLoc--;
+            xLoc--;
+        }
+
+
+    }
 
 }
