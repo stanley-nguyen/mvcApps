@@ -7,6 +7,7 @@ Edits:
     Stanley 3/16/23: updated makeView() and makeEditCommand() with new parameters
 */
 
+
 public interface AppFactory {
     public Model makeModel();
     public View makeView(Model m);
