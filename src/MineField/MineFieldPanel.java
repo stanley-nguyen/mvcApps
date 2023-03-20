@@ -54,7 +54,9 @@ public class MineFieldPanel extends AppPanel {
         controlPanel.add(NW);
 
 
+
     }
+
 
     public static void main(String[] args) {
         AppFactory factory = new MineFieldFactory();
