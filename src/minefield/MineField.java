@@ -9,6 +9,7 @@ import java.util.Random;
     Sanjana 3/18/23: Created instance variables and constructor
     Sanjana 3/19/23: Implemented the makeGrid method that randomly assigns bombs in the grid
     Sanjana 3/19/23: Implemented makeGrid() and setPatchNums()
+    Bryant 3/20/23: Modified move() method with a switch statement and to throw exceptions
  */
 public class MineField {
     private Patch[][] grid = new Patch[mineFieldLength][mineFieldWidth];
@@ -98,36 +99,68 @@ public class MineField {
         }
      }
 
-    public void move(Heading h){
-        if (h == Heading.N){
-            yLoc--;
+    public void move(Heading h) throws Exception {
+        int newXLoc = xLoc;
+        int newYLoc = yLoc;
+        
+        // switch statement based on heading)
+        switch(h) {
+            case N: {
+                newYLoc--;
+                break;
+            }
+            case NE: {
+                newYLoc--;
+                newXLoc++;
+                break;
+            }
+            case E: {
+                newXLoc++;
+                break;
+            }
+            case SE: {
+                newYLoc++;
+                newXLoc++;
+                break;
+            }
+            case S: {
+                newYLoc++;
+                break;
+            }
+            case SW: {
+                newYLoc++;
+                newXLoc--;
+                break;
+            }
+            case W: {
+                newXLoc--;
+                break;
+            }
+            case NW: {
+                newYLoc--;
+                newXLoc--;
+                break;
+            }
         }
-        if (h == Heading.NE){
-            yLoc--;
-            xLoc++;
+        
+        // When player tries to move off of the grid (location out of bounds)
+        if (newXLoc < 0 || newXLoc >= mineFieldWidth || newYLoc < 0 || newYLoc >= mineFieldLength) {
+            throw new Exception("Player has moved off of the grid.");
         }
-        if (h == Heading.E){
-            xLoc++;
+        
+        // When player steps on a mine
+        if (grid[newYLoc][newXloc].isBomb()) {
+            throw new Exception("Player has stepped on a mine.");
         }
-        if (h == Heading.SE){
-            yLoc++;
-            xLoc++;
+        
+        // When player reaches the goal
+        if (grid[newYLoc][newXLoc].isGoal()) {
+            throw new Exception("Player has reached the goal.");
         }
-        if (h == Heading.S){
-            yLoc++;
-        }
-        if (h == Heading.SW){
-            yLoc++;
-            xLoc--;
-        }
-        if (h == Heading.W){
-            xLoc--;
-        }if (h == Heading.NW){
-            yLoc--;
-            xLoc--;
-        }
-
-
+        
+        // Player's updated location
+        xLoc = newXLoc;
+        yLoc = newYLoc;
     }
 
 }
