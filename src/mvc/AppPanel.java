@@ -46,7 +46,6 @@ public class AppPanel extends JPanel implements ActionListener, PropertyChangeLi
             frame.setJMenuBar(this.createMenuBar());
             frame.setTitle(af.getTitle());
             frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-//            frame.setVisible(true);
         }
 
         protected JMenuBar createMenuBar() {
@@ -66,8 +65,6 @@ public class AppPanel extends JPanel implements ActionListener, PropertyChangeLi
          */
         public void actionPerformed(ActionEvent e) {
             String cmmd = e.getActionCommand();
-            //2.0: New, Save, SaveAs, Open, Quit, Help, and About.
-            //Original: North, East, West, South, Clear, Pen, Color;
             try {
                 switch (cmmd) {
                     case "Save": {
@@ -135,8 +132,7 @@ public class AppPanel extends JPanel implements ActionListener, PropertyChangeLi
                 handleException(ex); // all error handling done here!
             }
         }
-
-        public void display() { frame.setVisible(true); }
+    public void display() { frame.setVisible(true); }
 
         @Override
         public void propertyChange(PropertyChangeEvent evt) {
@@ -159,7 +155,6 @@ public class AppPanel extends JPanel implements ActionListener, PropertyChangeLi
         {
             Utilities.error(e);
         }
-
         // and away we go ...
 //        public static void main(String[] args) {
 //            AppPanel app = new AppPanel();
