@@ -17,7 +17,7 @@ public class MineFieldCommand extends Command {
     }
 
     public void execute() {
-        Minefield minefield = (Minefield)model;
+        MineField minefield = (MineField)model;
         // change() or move() method to be implemented on Minefield.java
         // moves player based on specified heading
         minefield.move(heading);
