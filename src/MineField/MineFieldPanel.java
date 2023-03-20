@@ -1,4 +1,4 @@
-package MineField;
+package minefield;
 import mvc.*;
 /**
  * Edits:

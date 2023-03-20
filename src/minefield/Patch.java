@@ -1,4 +1,4 @@
-package MineField;
+package minefield;
 /*
     Edits:
     Sanjana 3/18/23: Created Class
@@ -15,10 +15,13 @@ public class Patch {
     private int xLoc;
     private int yLoc;
 
-    public Patch(boolean b, int x, int y){
+    private int numMines;
+
+    public Patch(int x, int y){
         this.bomb = false;
         this.xLoc = x;
         this.yLoc = y;
+        numMines = 0;
     }
 
     public boolean isBomb() {
@@ -43,5 +46,13 @@ public class Patch {
 
     public void setYLoc(int yLoc) {
         this.yLoc = yLoc;
+    }
+
+    public int getNumMines() {
+        return numMines;
+    }
+
+    public void setNumMines(int numMines) {
+        this.numMines = numMines;
     }
 }
