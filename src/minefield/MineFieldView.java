@@ -6,6 +6,7 @@ Edits:
     Stanley 3/16/23: partially implemented mine grid and created test main() function
     Stanley 3/19/23: nested Cell class inside MineFieldView
     Stanley 3/20/23: implemented constructor to create Patch grid, added update() for propertyChange(), added New and Open case for propertyChange
+    Stanley 3/21/23: highlight current player position in light_gray
 */
 
 import mvc.*;
@@ -98,14 +99,18 @@ public class MineFieldView extends View {
                 if(field.getX() == r && field.getY() == c)
                 {
                     cells[r][c].getPatch().setDiscovered(true);
+                    cells[r][c].setText("" + field.getMineField()[r][c].getNumMines());
                 }
 
                 // path of player
-                if(cells[r][c].getPatch().isDiscovered() && !cells[r][c].getPatch().isGoal())
+                if(field.getX() == r && field.getY() == c && !cells[r][c].getPatch().isGoal())
                 {
+                    cells[r][c].setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 
+                }
+                else if (cells[r][c].getPatch().isDiscovered() && !cells[r][c].getPatch().isGoal())
+                {
                     cells[r][c].setBorder(BorderFactory.createLineBorder(Color.WHITE));
-                    cells[r][c].setText("" + field.getMineField()[r][c].getNumMines());
                 }
 
                 if(cells[r][c].getPatch().isBomb() && field.getX() == r && field.getY() == c)

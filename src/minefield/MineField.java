@@ -12,6 +12,7 @@ import mvc.*;
     Bryant 3/20/23: Modified move() method and Utilties.error for the given scenarios
     Bryant 3/20/23: Added goal location in public Minefield() for isGoal() method
     Stanley 3/20/23: Added game over case, MineField getter, x and y getter, added changed() to move, added setUpMines and setPatchNums to constructor
+    Stanley 3/21/23: Reset position of player when step off grid
  */
 public class MineField extends Model{
     private Patch[][] grid = new Patch[mineFieldLength][mineFieldWidth];
@@ -173,6 +174,8 @@ public class MineField extends Model{
         // When player tries to move off of the grid (location out of bounds)
         if (newXLoc < 0 || newXLoc >= mineFieldWidth || newYLoc < 0 || newYLoc >= mineFieldLength) {
             Utilities.error("Player has moved off of the grid.");
+            newXLoc = xLoc;
+            newYLoc = yLoc;
         }
 
         // When player steps on a mine
