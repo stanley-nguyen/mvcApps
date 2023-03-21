@@ -13,16 +13,16 @@ import mvc.*;
     Bryant 3/20/23: Added goal location in public Minefield() for isGoal() method
     Stanley 3/20/23: Added game over case, MineField getter, x and y getter, added changed() to move, added setUpMines and setPatchNums to constructor
     Stanley 3/21/23: Reset position of player when step off grid
+    Stanley 3/21/23: Changed minefieldWidth & Length to static variable DIM
  */
 public class MineField extends Model{
-    private Patch[][] grid = new Patch[mineFieldLength][mineFieldWidth];
+    private Patch[][] grid = new Patch[DIM][DIM];
     private int xLoc;
     private int yLoc;
     private final Random generator = new Random();
 
     public static int percentMined = 5;
-    public static int mineFieldWidth = 20;
-    public static int mineFieldLength = 20;
+    public static int DIM = 20;
     private int goalX;
     private int goalY;
     private boolean gameOver = false;
@@ -30,8 +30,8 @@ public class MineField extends Model{
 
     public MineField(){
         //Initializing the grid array
-        for(int i = 0; i < mineFieldLength; i++) {
-            for (int j = 0; j < mineFieldWidth; j++) {
+        for(int i = 0; i < DIM; i++) {
+            for (int j = 0; j < DIM; j++) {
                 grid[i][j] = new Patch();
             }
         }
@@ -39,8 +39,8 @@ public class MineField extends Model{
         this.yLoc = 0;
         
         // Setting the goal location (bottom-right corner of Minefield)
-        goalX = mineFieldWidth - 1;
-        goalY = mineFieldLength -1;
+        goalX = DIM - 1;
+        goalY = DIM -1;
         grid[goalY][goalX].setGoal(true);
         setUpMines();
         setPatchNums();
@@ -57,11 +57,11 @@ public class MineField extends Model{
 
     //Method to set up random mines around the grid
      public void setUpMines(){
-       for(int i = 0; i < (mineFieldWidth * mineFieldLength) * (.01 * percentMined); i++){
-           int x = generator.nextInt(mineFieldWidth);
-           int y = generator.nextInt(mineFieldLength);
+       for(int i = 0; i < (DIM * DIM) * (.01 * percentMined); i++){
+           int x = generator.nextInt(DIM);
+           int y = generator.nextInt(DIM);
            // Selected patch is not a bomb, start, or goal
-           if(!grid[x][y].isBomb() && (x != 0 && x != y) && (x != mineFieldWidth)){
+           if(!grid[x][y].isBomb() && (x != 0 && x != y) && (x != DIM)){
                grid[x][y].setBomb(true);
            }
            else{ //If the randomly chosen patch already happens to have a bomb, then we want the method to reassign the bomb
@@ -75,8 +75,8 @@ public class MineField extends Model{
      public void setPatchNums(){
         //In order to find how many mines a patch touches, we must check all 8 adjacent patches
          //If any one of them has a mine, increment the "numMines" field of the current patch
-        for(int i = 0; i < mineFieldLength; i++){
-            for(int j = 0; j < mineFieldWidth; j++){
+        for(int i = 0; i < DIM; i++){
+            for(int j = 0; j < DIM; j++){
                 Patch current = grid[i][j];
                 if(i - 1 >= 0 && j - 1 >= 0){ //Checking for mine in patch in top left corner
                     if (grid[i - 1][j - 1].isBomb()){
@@ -88,7 +88,7 @@ public class MineField extends Model{
                         current.setNumMines(current.getNumMines() + 1);
                     }
                 }
-                if(i - 1 >= 0 && j + 1 < mineFieldWidth){ //Checking for mine in patch on top right corner
+                if(i - 1 >= 0 && j + 1 < DIM){ //Checking for mine in patch on top right corner
                     if (grid[i - 1][j + 1].isBomb()){
                         current.setNumMines(current.getNumMines() + 1);
                     }
@@ -98,22 +98,22 @@ public class MineField extends Model{
                         current.setNumMines(current.getNumMines() + 1);
                     }
                 }
-                if(j + 1 < mineFieldWidth){ //Checking for mine in patch on the right side
+                if(j + 1 < DIM){ //Checking for mine in patch on the right side
                     if (grid[i][j + 1].isBomb()){
                         current.setNumMines(current.getNumMines() + 1);
                     }
                 }
-                if(i + 1 < mineFieldLength && j - 1 >= 0){ //Checking for mine in patch on bottom left corner
+                if(i + 1 < DIM && j - 1 >= 0){ //Checking for mine in patch on bottom left corner
                     if (grid[i + 1][j - 1].isBomb()){
                         current.setNumMines(current.getNumMines() + 1);
                     }
                 }
-                if(i + 1 < mineFieldLength){ //Checking for mine in patch on bottom
+                if(i + 1 < DIM){ //Checking for mine in patch on bottom
                     if (grid[i + 1][j].isBomb()){
                         current.setNumMines(current.getNumMines() + 1);
                     }
                 }
-                if(i + 1 < mineFieldLength && j + 1 < mineFieldWidth){ //Checking for mine in patch on bottom left corner
+                if(i + 1 < DIM && j + 1 < DIM){ //Checking for mine in patch on bottom left corner
                     if (grid[i + 1][j + 1].isBomb()){
                         current.setNumMines(current.getNumMines() + 1);
                     }
@@ -172,7 +172,7 @@ public class MineField extends Model{
         }
 
         // When player tries to move off of the grid (location out of bounds)
-        if (newXLoc < 0 || newXLoc >= mineFieldWidth || newYLoc < 0 || newYLoc >= mineFieldLength) {
+        if (newXLoc < 0 || newXLoc >= DIM || newYLoc < 0 || newYLoc >= DIM) {
             Utilities.error("Player has moved off of the grid.");
             newXLoc = xLoc;
             newYLoc = yLoc;

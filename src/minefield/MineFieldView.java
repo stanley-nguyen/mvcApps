@@ -7,6 +7,7 @@ Edits:
     Stanley 3/19/23: nested Cell class inside MineFieldView
     Stanley 3/20/23: implemented constructor to create Patch grid, added update() for propertyChange(), added New and Open case for propertyChange
     Stanley 3/21/23: highlight current player position in light_gray
+    Stanley 3/21/23: update DIM to take dimensions from MineField
 */
 
 import mvc.*;
@@ -17,12 +18,13 @@ import javax.swing.*;
 public class MineFieldView extends View {
 
     private Cell[][] cells;
-    private static int DIM = 20;
+    private static int DIM;
 
     public MineFieldView(Model m) {
         super(m);
 
         MineField model = (MineField) m;
+        DIM = MineField.DIM;
 
         Patch[][] mf = model.getMineField();
 
