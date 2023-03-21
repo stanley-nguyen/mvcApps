@@ -5,6 +5,7 @@ import mvc.*;
  * Sanjana 3/18/23: Created MineFieldPanel Class.
  * Sanjana 3/18/23: Wrote Constructor
  * Sanjana 3/18/23: wrote main method.
+ * Bryant 3/21/23: Added GridLayout for the control panel buttons
  */
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -22,6 +23,8 @@ public class MineFieldPanel extends AppPanel {
 
     public MineFieldPanel(AppFactory factory) {
         super(factory);
+        controlPanel.setLayout(new GridLayout(4,2);
+        
         N = new JButton("N");
         N.addActionListener(this);
         controlPanel.add(N);
