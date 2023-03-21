@@ -22,7 +22,7 @@ public class MineField extends Model{
     public static int mineFieldLength;
 
 
-    public MineField(Patch patch){
+    public MineField(){
         //Initializing the grid array
         for(int i = 0; i < mineFieldLength; i++) {
             for (int j = 0; j < mineFieldWidth; j++) {

@@ -25,8 +25,6 @@ public class Patch {
         return bomb;
     }
 
-
-
     public void setBomb(boolean bomb) {
         this.bomb = bomb;
     }

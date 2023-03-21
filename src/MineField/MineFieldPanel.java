@@ -7,8 +7,10 @@ import mvc.*;
  * Sanjana 3/18/23: wrote main method.
  */
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 public class MineFieldPanel extends AppPanel {
+    MineField m = new MineField();
     private JButton N; //change
     private JButton NE;
     private JButton E;
@@ -53,9 +55,9 @@ public class MineFieldPanel extends AppPanel {
         NW.addActionListener(this);
         controlPanel.add(NW);
 
-
-
     }
+
+
 
 
     public static void main(String[] args) {
