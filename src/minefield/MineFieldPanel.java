@@ -9,6 +9,7 @@ import mvc.*;
  */
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.*;
 
 public class MineFieldPanel extends AppPanel {
     private JButton N; //change
