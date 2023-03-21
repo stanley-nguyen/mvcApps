@@ -160,12 +160,12 @@ public class MineField extends Model{
         if (grid[newYLoc][newXLoc].isBomb()) {
             Utilities.error("Player has stepped on a mine.");
         }
-        /*
+        
         // When player reaches the goal
         if (grid[newYLoc][newXLoc].isGoal()) {
             Utilities.error("Player has reached the goal.");
         }
-        */
+        
         // Player's updated location
         xLoc = newXLoc;
         yLoc = newYLoc;
