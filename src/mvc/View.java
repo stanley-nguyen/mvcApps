@@ -4,6 +4,7 @@ package mvc;
 Edits:
     Stanley 3/12/23: created file
     Stanley 3/12/23: completed file
+    Stanley 3/20/23: added initSupport to constructor
  */
 
 import javax.swing.*;
@@ -17,14 +18,15 @@ public class View extends JPanel implements PropertyChangeListener {
     {
         model = m;
         model.addPropertyChangeListener(this);
+        model.initSupport();
     }
 
     public void setModel(Model m)
     {
         model.removePropertyChangeListener(this);
         model = m;
-        model.addPropertyChangeListener(this);
         model.initSupport();
+        model.addPropertyChangeListener(this);
     }
 
     @Override

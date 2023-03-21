@@ -4,6 +4,7 @@ Edits:
     Sanjana 3/14/23: created file
     Bryant 3/17/23: added changed() method
     Stanley 3/17/23: updated default constructor of Model
+    Stanley 3/20/23: set oldValue for firePropertyChange() in changed() to false
 */
 public class Model extends Bean{
     Boolean unsavedChanges;
@@ -16,7 +17,7 @@ public class Model extends Bean{
     
 
     public void changed() {
-        firePropertyChange("unsavedChanges", this.unsavedChanges, true);
+        firePropertyChange("unsavedChanges", false, true);
         this.unsavedChanges = true;
     }
     

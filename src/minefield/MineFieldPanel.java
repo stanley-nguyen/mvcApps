@@ -10,7 +10,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class MineFieldPanel extends AppPanel {
-    MineField m = new MineField();
     private JButton N; //change
     private JButton NE;
     private JButton E;

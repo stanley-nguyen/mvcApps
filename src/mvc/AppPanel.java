@@ -16,6 +16,7 @@ Edits:
     Stanley 3/17/23: added display(), setModel() and getModel() from instructor
     Stanley 3/18/23: updated actionPerformed() commands
     Stanley 3/20/23: added edit commands to actionPerformed
+    Stanley 3/20/23: added property change to New and Open, fixed default switch in actionPerformed, added try catch block in setModel
 */
 public class AppPanel extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -26,8 +27,8 @@ public class AppPanel extends JPanel implements ActionListener, PropertyChangeLi
 //        private String fileName;
         private AppFactory af;
         private SafeFrame frame;
-        public static int FRAME_WIDTH = 500;
-        public static int FRAME_HEIGHT = 300;
+        public static int FRAME_WIDTH = 700;
+        public static int FRAME_HEIGHT = 500;
 
         public AppPanel(AppFactory factory) {
             // create model, install controls & view
@@ -68,20 +69,10 @@ public class AppPanel extends JPanel implements ActionListener, PropertyChangeLi
             try {
                 switch (cmmd) {
                     case "Save": {
-//                        if(fileName == null){
-//                            fileName = Utilities.getFileName((String) null, false);
-//                            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName));
-//                            os.writeObject(this.model);
-//                            os.close();
-//                        }
                         Utilities.save(model, false);
                         break;
                     }
                     case "Save As": {
-//                        String fName = Utilities.getFileName((String) null, false);
-//                        ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fName));
-//                        os.writeObject(this.model);
-//                        os.close();
                         Utilities.save(model, true);
                         break;
                     }
@@ -89,16 +80,20 @@ public class AppPanel extends JPanel implements ActionListener, PropertyChangeLi
                         if (Utilities.confirm("Are you sure? Unsaved changes will be lost!")) {
                             String fName = Utilities.getFileName((String) null, true);
                             ObjectInputStream is = new ObjectInputStream(new FileInputStream(fName));
+                            Model oldModel = model;
                             model = (Model) is.readObject();
                             setModel(model);
+                            model.firePropertyChange("Open", oldModel, model);
                             is.close();
                         }
                         break;
                     }
                     case "New": {
                         if (Utilities.confirm("Are you sure? Unsaved changes will be lost!")) {
+                            Model oldModel = model;
                             model = af.makeModel();
                             setModel(model); // set model
+                            model.firePropertyChange("New", oldModel, model);
                         }
                         break;
                     }
@@ -117,14 +112,17 @@ public class AppPanel extends JPanel implements ActionListener, PropertyChangeLi
                         break;
                     }
                     default: {
+                        boolean cmmdExists = false;
                         for(String s : af.getEditCommands())
                         {
                             if(cmmd.equals(s))
                             {
-                                af.makeEditCommand(model, s, null);
+                                af.makeEditCommand(model, s, null).execute();
+                                cmmdExists = true;
                                 break;
                             }
                         }
+                        if(cmmdExists) break;
                         throw new Exception("Unrecognized command: " + cmmd);
                     }
                 }
@@ -136,14 +134,16 @@ public class AppPanel extends JPanel implements ActionListener, PropertyChangeLi
 
         @Override
         public void propertyChange(PropertyChangeEvent evt) {
-
+            repaint();
         }
 
         public Model getModel() { return model; }
 
         // called by file/open and file/new
         public void setModel(Model newModel) {
-            this.model.removePropertyChangeListener(this);
+            try { this.model.removePropertyChangeListener(this); }
+            catch(NullPointerException e){}
+
             this.model = newModel;
             this.model.initSupport(); // defined in Bean
             this.model.addPropertyChangeListener(this);

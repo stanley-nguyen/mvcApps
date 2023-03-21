@@ -1,6 +1,5 @@
 package minefield;
 
-import java.util.ArrayList;
 import java.util.Random;
 import mvc.*;
 
@@ -12,6 +11,7 @@ import mvc.*;
     Sanjana 3/19/23: Implemented makeGrid() and setPatchNums()
     Bryant 3/20/23: Modified move() method and Utilties.error for the given scenarios
     Bryant 3/20/23: Added goal location in public Minefield() for isGoal() method
+    Stanley 3/20/23: Added game over case, MineField getter, x and y getter, added changed() to move, added setUpMines and setPatchNums to constructor
  */
 public class MineField extends Model{
     private Patch[][] grid = new Patch[mineFieldLength][mineFieldWidth];
@@ -20,10 +20,11 @@ public class MineField extends Model{
     private final Random generator = new Random();
 
     public static int percentMined = 5;
-    public static int mineFieldWidth;
-    public static int mineFieldLength;
+    public static int mineFieldWidth = 20;
+    public static int mineFieldLength = 20;
     private int goalX;
     private int goalY;
+    private boolean gameOver = false;
 
 
     public MineField(){
@@ -40,13 +41,26 @@ public class MineField extends Model{
         goalX = mineFieldWidth - 1;
         goalY = mineFieldLength -1;
         grid[goalY][goalX].setGoal(true);
+        setUpMines();
+        setPatchNums();
     }
+
+    public Patch[][] getMineField()
+    {
+        return grid;
+    }
+
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
+    }
+
     //Method to set up random mines around the grid
      public void setUpMines(){
        for(int i = 0; i < (mineFieldWidth * mineFieldLength) * (.01 * percentMined); i++){
-           int x = generator.nextInt(0, mineFieldWidth);
-           int y = generator.nextInt(0, mineFieldLength);
-           if(!grid[x][y].isBomb()){
+           int x = generator.nextInt(mineFieldWidth);
+           int y = generator.nextInt(mineFieldLength);
+           // Selected patch is not a bomb, start, or goal
+           if(!grid[x][y].isBomb() && (x != 0 && x != y) && (x != mineFieldWidth)){
                grid[x][y].setBomb(true);
            }
            else{ //If the randomly chosen patch already happens to have a bomb, then we want the method to reassign the bomb
@@ -111,19 +125,24 @@ public class MineField extends Model{
         int newXLoc = xLoc;
         int newYLoc = yLoc;
 
+        if(gameOver)
+        {
+            Utilities.error("Game has ended! Start a new game to continue.");
+            return;
+        }
         // switch statement (based on heading)
-        switch(h) {
+        switch (h) {
             case N: {
-                newYLoc--;
+                newXLoc--;
                 break;
             }
             case NE: {
-                newYLoc--;
-                newXLoc++;
+                newYLoc++;
+                newXLoc--;
                 break;
             }
             case E: {
-                newXLoc++;
+                newYLoc++;
                 break;
             }
             case SE: {
@@ -132,16 +151,16 @@ public class MineField extends Model{
                 break;
             }
             case S: {
-                newYLoc++;
+                newXLoc++;
                 break;
             }
             case SW: {
-                newYLoc++;
-                newXLoc--;
+                newYLoc--;
+                newXLoc++;
                 break;
             }
             case W: {
-                newXLoc--;
+                newYLoc--;
                 break;
             }
             case NW: {
@@ -157,18 +176,21 @@ public class MineField extends Model{
         }
 
         // When player steps on a mine
-        if (grid[newYLoc][newXLoc].isBomb()) {
+        if (grid[newXLoc][newYLoc].isBomb()) {
             Utilities.error("Player has stepped on a mine.");
         }
-        
+
         // When player reaches the goal
-        if (grid[newYLoc][newXLoc].isGoal()) {
+        if (grid[newXLoc][newYLoc].isGoal()) {
             Utilities.error("Player has reached the goal.");
         }
-        
         // Player's updated location
         xLoc = newXLoc;
         yLoc = newYLoc;
+        changed();
     }
+
+    public int getX() { return xLoc; }
+    public int getY() { return yLoc; }
 
 }
