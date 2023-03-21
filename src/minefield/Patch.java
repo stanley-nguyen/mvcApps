@@ -4,6 +4,7 @@ package minefield;
     Sanjana 3/18/23: Created Class
     Sanjana 3/18/23: Created instance variables and constructor
     Sanjana 3/18/23: Created Getters and Setters for instance variables
+    Bryant 3/20/23: Added boolean attribute, getter, and setter for goal
  */
 
 /**
@@ -12,9 +13,8 @@ package minefield;
  */
 public class Patch {
     private boolean bomb;
-
     private int numMines;
-
+    private boolean goal;
 
     public Patch(){
         this.bomb = false;
@@ -24,11 +24,18 @@ public class Patch {
     public boolean isBomb() {
         return bomb;
     }
+    
+    public boolean isGoal() {
+        return goal;
+    }
 
     public void setBomb(boolean bomb) {
         this.bomb = bomb;
     }
-
+    
+    public void setGoal(boolean goal) {
+        this.goal = goal;
+    }
 
     public int getNumMines() {
         return numMines;
