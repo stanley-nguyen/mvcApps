@@ -3,15 +3,16 @@ package mvc;
 Edits:
     Sanjana 3/14/23: created file
     Bryant 3/17/23: added changed() method
-    Stanley 3/17/23: updated default constructor of Model
 */
 public class Model extends Bean{
     Boolean unsavedChanges;
     String fileName;
 
-    public Model(){
-        unsavedChanges = false;
-        fileName = null;
+    public Model(Boolean unsavedChanges, String fileName){
+        this.unsavedChanges = unsavedChanges;
+        this.fileName = fileName;
+    }
+    public Model(){ //Default constructor for generalization
     }
 
     public void changed() {

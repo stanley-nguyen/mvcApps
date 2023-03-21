@@ -11,7 +11,7 @@ import mvc.*;
     Sanjana 3/19/23: Implemented the makeGrid method that randomly assigns bombs in the grid
     Sanjana 3/19/23: Implemented makeGrid() and setPatchNums()
  */
-public class MineField{
+public class MineField extends Model{
     private Patch[][] grid = new Patch[mineFieldLength][mineFieldWidth];
     private int xLoc;
     private int yLoc;
