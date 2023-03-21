@@ -11,6 +11,7 @@ import mvc.*;
     Sanjana 3/19/23: Implemented the makeGrid method that randomly assigns bombs in the grid
     Sanjana 3/19/23: Implemented makeGrid() and setPatchNums()
     Bryant 3/20/23: Modified move() method and Utilties.error for the given scenarios
+    Bryant 3/20/23: Added goal location in public Minefield() for isGoal() method
  */
 public class MineField extends Model{
     private Patch[][] grid = new Patch[mineFieldLength][mineFieldWidth];
@@ -21,6 +22,8 @@ public class MineField extends Model{
     public static int percentMined = 5;
     public static int mineFieldWidth;
     public static int mineFieldLength;
+    private int goalX;
+    private int goalY;
 
 
     public MineField(){
@@ -32,7 +35,11 @@ public class MineField extends Model{
         }
         this.xLoc = 0;
         this.yLoc = 0;
-
+        
+        // Setting the goal location (bottom-right corner of Minefield)
+        goalX = mineFieldWidth - 1;
+        goalY = mineFieldLength -1;
+        grid[goalY][goalX].setGoal(true);
     }
     //Method to set up random mines around the grid
      public void setUpMines(){
