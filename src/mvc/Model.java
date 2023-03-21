@@ -13,6 +13,7 @@ public class Model extends Bean{
         unsavedChanges = false;
         fileName = null;
     }
+    
 
     public void changed() {
         firePropertyChange("unsavedChanges", this.unsavedChanges, true);

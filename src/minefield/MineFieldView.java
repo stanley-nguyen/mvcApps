@@ -60,7 +60,3 @@ public class MineFieldView extends View {
 //    }
 }
 
-public class Cell extends JLabel
-{
-    Patch = new Patch();
-}
