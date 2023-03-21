@@ -10,6 +10,7 @@ import mvc.*;
     Sanjana 3/18/23: Created instance variables and constructor
     Sanjana 3/19/23: Implemented the makeGrid method that randomly assigns bombs in the grid
     Sanjana 3/19/23: Implemented makeGrid() and setPatchNums()
+    Bryant 3/20/23: Modified move() method and Utilties.error for the given scenarios
  */
 public class MineField extends Model{
     private Patch[][] grid = new Patch[mineFieldLength][mineFieldWidth];
@@ -99,36 +100,68 @@ public class MineField extends Model{
         }
      }
 
-    public void move(Heading h){
-        if (h == Heading.N){
-            yLoc--;
-        }
-        if (h == Heading.NE){
-            yLoc--;
-            xLoc++;
-        }
-        if (h == Heading.E){
-            xLoc++;
-        }
-        if (h == Heading.SE){
-            yLoc++;
-            xLoc++;
-        }
-        if (h == Heading.S){
-            yLoc++;
-        }
-        if (h == Heading.SW){
-            yLoc++;
-            xLoc--;
-        }
-        if (h == Heading.W){
-            xLoc--;
-        }if (h == Heading.NW){
-            yLoc--;
-            xLoc--;
+    public void move(Heading h) {
+        int newXLoc = xLoc;
+        int newYLoc = yLoc;
+
+        // switch statement (based on heading)
+        switch(h) {
+            case N: {
+                newYLoc--;
+                break;
+            }
+            case NE: {
+                newYLoc--;
+                newXLoc++;
+                break;
+            }
+            case E: {
+                newXLoc++;
+                break;
+            }
+            case SE: {
+                newYLoc++;
+                newXLoc++;
+                break;
+            }
+            case S: {
+                newYLoc++;
+                break;
+            }
+            case SW: {
+                newYLoc++;
+                newXLoc--;
+                break;
+            }
+            case W: {
+                newXLoc--;
+                break;
+            }
+            case NW: {
+                newYLoc--;
+                newXLoc--;
+                break;
+            }
         }
 
+        // When player tries to move off of the grid (location out of bounds)
+        if (newXLoc < 0 || newXLoc >= mineFieldWidth || newYLoc < 0 || newYLoc >= mineFieldLength) {
+            Utilities.error("Player has moved off of the grid.");
+        }
 
+        // When player steps on a mine
+        if (grid[newYLoc][newXLoc].isBomb()) {
+            Utilities.error("Player has stepped on a mine.");
+        }
+        /*
+        // When player reaches the goal
+        if (grid[newYLoc][newXLoc].isGoal()) {
+            Utilities.error("Player has reached the goal.");
+        }
+        */
+        // Player's updated location
+        xLoc = newXLoc;
+        yLoc = newYLoc;
     }
 
 }
