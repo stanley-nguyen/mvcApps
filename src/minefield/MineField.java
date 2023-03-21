@@ -128,7 +128,7 @@ public class MineField extends Model{
 
         if(gameOver)
         {
-            Utilities.error("Game has ended! Start a new game to continue.");
+            Utilities.inform("Game has ended! Start a new game to continue.");
             return;
         }
         // switch statement (based on heading)
@@ -185,7 +185,7 @@ public class MineField extends Model{
 
         // When player reaches the goal
         if (grid[newXLoc][newYLoc].isGoal()) {
-            Utilities.error("Player has reached the goal.");
+            Utilities.inform("Player has reached the goal.");
         }
         // Player's updated location
         xLoc = newXLoc;
