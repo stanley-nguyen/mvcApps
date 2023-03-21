@@ -24,7 +24,7 @@ public class MineFieldPanel extends AppPanel {
 
     public MineFieldPanel(AppFactory factory) {
         super(factory);
-        controlPanel.setLayout(new GridLayout(4,2);
+        controlPanel.setLayout(new GridLayout(4,2));
         
         N = new JButton("N");
         N.addActionListener(this);
